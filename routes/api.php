@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Resources\ReferencesResource;
+use App\Http\Resources\SettingsResource;
 use App\Mail\ContactFormMail;
 use App\Mail\OfferFormMail;
 use App\Models\Offer;
 use App\Models\References;
+use App\Models\Settings;
 use Illuminate\Http\Request;
+use Illuminate\Mail\SentMessage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,20 +26,35 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('settings', function () {
+    return SettingsResource::collection(Settings::all());
+});
+
 Route::get('references', function () {
-    return ReferencesResource::collection(References::all()->reverse());
+    return ReferencesResource::collection(References::all()->where('disabled', 0)->reverse());
 });
 Route::get('references/{id}', function ($id) {
     return ReferencesResource::collection(References::all()->reverse()->where('id', $id));
 });
 
-Route::post('post-contact', function ($request) {
-    return Mail::to('patrikfejfar2@gmail.com')->send(new ContactFormMail($request));
-    // @todo treba otestovať
+Route::post('post-contact', function (Request $request) {
+
+    Mail::to(Settings::first()->email_receive)->send(
+        new ContactFormMail($request)
+    );
+
+    return response()->json(['status' => 'Mail bol úspešne odoslaný.']);
 });
 
-Route::post('post-offer', function ($request) {
-    Mail::to('patrikfejfar2@gmail.com')->send(new OfferFormMail($request));
-    Offer::create($request);
-    // @todo treba otestovať
+Route::post('post-offer', function (Request $request) {
+
+    Mail::to(Settings::first()->email_receive)->send(
+        new OfferFormMail($request)
+    );
+
+    Offer::create(
+        $request->all()
+    );
+
+    return response()->json(['status' => 'Žiadosť o cenovú ponuku bola odoslaná.']);
 });

@@ -13,6 +13,6 @@ class Toast extends Component
         $this->status = session()->has('message');
         $this->text = session('message');
 
-        return view('livewire.toast');
+        return view('livewire.components.toast');
     }
 }

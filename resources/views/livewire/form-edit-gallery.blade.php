@@ -4,16 +4,15 @@
     <x-slot:form>
         @if ($gallery)
             <div class="col-span-12">
-                <div class="text-sm opacity-75 text-center mb-4">{{ __('Vyberte jeden obrázok, ako hlavný.') }}</div>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     @foreach ($gallery as $key => $image)
                         <div class="relative flex justify-center items-stretch w-full h-full dark:bg-white/5 bg-black/5 rounded-lg">
-                            <x-reference-image :img-id="$image->id" :img-alt="$image->reference_id" @class(['rounded-lg object-contain','ring-4 ring-blue-500 ring-offset-4 ring-offset-white dark:ring-offset-gray-800 shadow-lg' => $main == $image->id ]) />
+                            <x-reference-image :img-id="$image->id" :img-alt="$image->reference_id" resolution="200x200" @class(['rounded-lg object-contain','ring-4 ring-blue-500 ring-offset-4 ring-offset-white dark:ring-offset-gray-800 shadow-lg' => $main == $image->id ]) />
 
-                            <div class="absolute top-0 left-0 m-0.5">
+                            <div class="absolute top-0 left-0 m-1">
                                 <x-dropdown align="left" width="w-40">
                                     <x-slot:trigger>
-                                        <button class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white/50 rounded-lg hover:bg-gray-100 focus:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800/50 dark:hover:bg-gray-700 dark:focus:bg-gray-700 dark:focus:ring-gray-600 backdrop-blur" type="button">
+                                        <button class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white/50 rounded-md hover:bg-gray-100 focus:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800/50 dark:hover:bg-gray-700 dark:focus:bg-gray-700 dark:focus:ring-gray-600 backdrop-blur" type="button">
                                             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
                                                 <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
                                             </svg>
@@ -35,7 +34,7 @@
                     @if($images)
                         @foreach ($images as $key => $img)
                             <div class="relative flex justify-center items-stretch w-full h-full dark:bg-white/5 bg-black/5 rounded-lg">
-                                <img src="{{ $img->temporaryUrl() }}" class="rounded-lg object-contain" alt="#{{ $key }}">
+                                <img src="{{ url('storage/app/livewire-tmp/' . $img->getFilename()) }}" class="rounded-lg object-contain" alt="#{{ $key }}">
                             </div>
                         @endforeach
                     @endif

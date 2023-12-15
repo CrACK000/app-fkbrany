@@ -34,7 +34,7 @@ class OffersList extends Component
     public function render()
     {
         return view('livewire.offers-list', [
-            'offers' => Offer::select(['id', 'name', 'surname', 'email', 'gate', 'created_at', 'entryGate', 'montage', 'motor'])->get()
+            'offers' => Offer::select(['id', 'name', 'surname', 'email', 'gate', 'created_at', 'entryGate', 'montage', 'motor'])->get()->reverse()
         ]);
     }
 }

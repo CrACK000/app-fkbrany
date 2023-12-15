@@ -37,4 +37,9 @@ Route::middleware([
     Route::get('/offers', function () { return view('offers.show'); })->name('offers');
     Route::get('/settings', function () { return view('settings.show'); })->name('settings');
 
+    /*Route::get('mail', function () {
+        $offer = \App\Models\Offer::all()->where('id', 7)->first();
+        return new \App\Mail\OfferFormMail($offer);
+    });*/
+
 });

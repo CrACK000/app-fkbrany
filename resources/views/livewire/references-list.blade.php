@@ -1,13 +1,13 @@
 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6 pt-0">
 
     <div class="w-full mb-8">
-        {{ $references->links('livewire.paginate') }}
+        {{ $references->links('livewire.components.paginate') }}
     </div>
 
     @foreach($references as $reference)
         <div class="flex flex-col lg:flex-row gap-6">
             <div class="lg:w-4/12">
-                <x-reference-preview :reference-id="$reference->id" :reference-title="$reference->title" class="w-full"></x-reference-preview>
+                <x-reference-preview :reference-id="$reference->id" :reference-title="$reference->title" resolution="480x270" class="w-full"></x-reference-preview>
             </div>
             <div class="lg:w-8/12">
                 <div class="text-2xl font-medium flex items-start">
@@ -45,6 +45,6 @@
         </x-slot:footer>
     </x-confirmation-modal>
 
-    {{ $references->links('livewire.paginate') }}
+    {{ $references->links('livewire.components.paginate') }}
 
 </div>

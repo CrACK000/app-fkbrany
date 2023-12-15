@@ -101,14 +101,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex flex-col gap-4 md:flex-row items-center">
-                                <div class="md:w-5/12 px-4 text-center text-base w-full uppercase">Tel. číslo</div>
-                                <div class="md:w-7/12 w-full">
-                                    <div class="bg-gray-100 dark:bg-gray-900/30 py-2 px-3 rounded-md">
-                                        {{ $detailsData->mobile }}
+                            @if($detailsData->mobile)
+                                <div class="flex flex-col gap-4 md:flex-row items-center">
+                                    <div class="md:w-5/12 px-4 text-center text-base w-full uppercase">Tel. číslo</div>
+                                    <div class="md:w-7/12 w-full">
+                                        <div class="bg-gray-100 dark:bg-gray-900/30 py-2 px-3 rounded-md">
+                                            {{ $detailsData->mobile }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                     <div class="bg-gray-50 dark:bg-gray-700/20">

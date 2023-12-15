@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Gallery;
+use App\Models\ReferenceGallery;
 use App\Models\References;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -17,7 +17,7 @@ class ReferencesResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'date' => $this->created_at,
-            'gallery' => GalleryResource::collection(Gallery::all()
+            'gallery' => GalleryResource::collection(ReferenceGallery::all()
                 ->where('reference_id', $this->id)
             )
         ];

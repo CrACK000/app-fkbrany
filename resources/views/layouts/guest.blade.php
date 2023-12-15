@@ -12,9 +12,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        <script src="https://kit.fontawesome.com/fb78c8d4cd.js" crossorigin="anonymous"></script>
-
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite('resources/js/app.js')
 
         <!-- Styles -->
         @livewireStyles
@@ -25,5 +23,7 @@
         </div>
 
         @livewireScripts
+
+        <script src="https://kit.fontawesome.com/fb78c8d4cd.js" crossorigin="anonymous"></script>
     </body>
 </html>

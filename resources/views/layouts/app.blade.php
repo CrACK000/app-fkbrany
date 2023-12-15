@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -15,18 +15,16 @@
         @livewireStyles
 
         <!-- Scripts -->
-        <script src="https://kit.fontawesome.com/fb78c8d4cd.js" crossorigin="anonymous"></script>
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-        <script>
-            // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        <script type="module">
             if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark');
             } else {
                 document.documentElement.classList.remove('dark')
             }
         </script>
+
+        @vite('resources/js/app.js')
     </head>
     <body class="font-sans antialiased">
         <x-banner />
@@ -97,5 +95,7 @@
         </script>
 
         @livewireScripts
+
+        <script src="https://kit.fontawesome.com/fb78c8d4cd.js" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -2,8 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Events\UploadCloudGalleryEvent;
 use App\Models\ReferenceGallery;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -13,31 +13,12 @@ class FormEditGallery extends Component
 
     public int $id;
     public int $main;
-    public $images;
+    public $images = [];
 
     public function updateGallery(): void
     {
         if ($this->images){
-
-            $files = [];
-
-            foreach ($this->images as $key => $image) {
-
-                $file_src = uniqid();
-                $file_tmp = $image->extension();
-                $file_full_name = "$file_src.$file_tmp";
-
-                $image->storeAs('galleries/'.$this->id, $file_full_name, 'cloud');
-
-                $files[$key]['src'] = $file_src;
-                $files[$key]['tmp'] = $file_tmp;
-                $files[$key]['reference_id'] = $this->id;
-            }
-
-            foreach ($files as $file) {
-                ReferenceGallery::create($file);
-            }
-
+            UploadCloudGalleryEvent::upload($this->images, $this->id);
             $this->images = [];
             $this->dispatch('saved');
         }
@@ -56,13 +37,12 @@ class FormEditGallery extends Component
 
         $reference->main = 1;
         $reference->save();
-
     }
 
     public function deleteImg($imgId): void
     {
         $imageModel = ReferenceGallery::find($imgId);
-        Storage::disk('cloud')->delete("galleries/$imageModel->reference_id/$imageModel->src.$imageModel->tmp");
+        array_map('unlink', glob(base_path("../cloud/galleries/$imageModel->reference_id/{$imageModel->src}_*.*")));
         $imageModel->delete();
     }
 

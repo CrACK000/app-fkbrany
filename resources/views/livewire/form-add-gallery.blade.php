@@ -8,7 +8,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
                 @foreach ($images as $key => $image)
                     <div class="flex justify-center items-center w-full h-full">
-                        <img src="{{ $image->temporaryUrl() }}" @class(['rounded-lg cursor-pointer','ring-4 ring-blue-500 ring-offset-4 ring-offset-white dark:ring-offset-gray-800 shadow-lg' => $main == $key]) alt="img[#{{$key}}]" wire:click="setMainImg({{$key}})">
+                        <img src="{{ url('storage/app/livewire-tmp/' . $image->getFilename()) }}" @class(['rounded-lg cursor-pointer','ring-4 ring-blue-500 ring-offset-4 ring-offset-white dark:ring-offset-gray-800 shadow-lg' => $main == $key]) alt="img[#{{$key}}]" wire:click="setMainImg({{$key}})">
                     </div>
                 @endforeach
             </div>
